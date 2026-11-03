@@ -57,6 +57,11 @@ const fonts = {
 export const theme = {
   colors,
   fonts,
+  spacing: {
+    cardGap: 'clamp(0.75rem, 1.8vw, 1.5rem)',
+    cardPadding: 'clamp(0.875rem, 1.6vw, 1.375rem)',
+    sectionGap: 'clamp(1rem, 2.5vw, 2rem)',
+  },
 } as const;
 
 export type ThemeType = typeof theme;

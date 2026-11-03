@@ -11,7 +11,7 @@ export const Card = styled(Link)<{ $dimmed: boolean }>`
   align-items: center;
   gap: 1rem;
   width: 100%;
-  padding: 1.125rem 1rem 1.125rem 1.25rem;
+  padding: ${({ theme }) => theme.spacing.cardPadding};
   border: 1px solid ${({ theme }) => theme.colors.grayScale.gy100};
   border-radius: 0.875rem;
   background-color: ${({ theme }) => theme.colors.grayScale.white};

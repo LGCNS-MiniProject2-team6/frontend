@@ -4,7 +4,7 @@ import styled from 'styled-components';
 export const Container = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 0.8125rem;
+  gap: ${({ theme }) => theme.spacing.sectionGap};
   padding: 1.625rem 1.75rem;
 `;
 
@@ -146,7 +146,7 @@ export const ToggleCount = styled.span`
 export const PostList = styled.ul`
   display: flex;
   flex-direction: column;
-  gap: 0.8125rem;
+  gap: ${({ theme }) => theme.spacing.cardGap};
 `;
 
 // 빈 상태 · 없는 기업 안내. 시안이 없어 카드 모양만 맞춘 임시 디자인이다.

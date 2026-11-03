@@ -11,7 +11,7 @@ export const Card = styled.article`
   align-items: flex-start;
   gap: 0.5rem;
   width: 100%;
-  padding: 1.25rem 1.375rem 1.125rem;
+  padding: ${({ theme }) => theme.spacing.cardPadding};
   border: 1px solid ${({ theme }) => theme.colors.grayScale.gy100};
   border-radius: 0.75rem;
   background-color: ${({ theme }) => theme.colors.grayScale.white};
