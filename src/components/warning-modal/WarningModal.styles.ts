@@ -22,6 +22,9 @@ export const Popup = styled.div`
   border-radius: 1.25rem;
   background-color: ${({ theme }) => theme.colors.grayScale.white};
   box-shadow: 0 12px 20px 0 rgb(0 0 0 / 14%);
+  max-height: calc(100dvh - 2rem);
+  overflow-y: auto;
+
 `;
 
 export const IconBadge = styled.span`
