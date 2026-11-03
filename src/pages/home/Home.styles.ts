@@ -4,7 +4,7 @@ import styled from 'styled-components';
 export const Container = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 2.4375rem;
+  gap: ${({ theme }) => theme.spacing.sectionGap};
   padding: 3.3125rem 1.875rem;
 `;
 
@@ -27,5 +27,5 @@ export const Subtitle = styled.p`
 export const List = styled.ul`
   display: flex;
   flex-direction: column;
-  gap: 2.4375rem;
+  gap: ${({ theme }) => theme.spacing.cardGap};
 `;

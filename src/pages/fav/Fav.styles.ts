@@ -3,7 +3,7 @@ import styled from 'styled-components';
 export const Container = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: ${({ theme }) => theme.spacing.sectionGap};
   padding: 1.625rem 1.75rem;
 `;
 
@@ -20,6 +20,6 @@ export const Subtitle = styled.p`
 export const List = styled.ul`
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: ${({ theme }) => theme.spacing.cardGap};
   width: 100%;
 `;

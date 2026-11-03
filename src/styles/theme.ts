@@ -58,6 +58,11 @@ export const theme = {
   radius: { control: '0.5rem', card: '0.75rem', modal: '1rem', pill: '999px' },
   colors,
   fonts,
+  spacing: {
+    cardGap: 'clamp(0.75rem, 1.8vw, 1.5rem)',
+    cardPadding: 'clamp(0.875rem, 1.6vw, 1.375rem)',
+    sectionGap: 'clamp(1rem, 2.5vw, 2rem)',
+  },
 } as const;
 
 export type ThemeType = typeof theme;
