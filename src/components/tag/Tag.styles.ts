@@ -1,5 +1,7 @@
 import styled, { css } from 'styled-components';
 
+import { subtleInteraction } from '@/styles/interaction';
+
 import type { TagVariant } from './Tag.types';
 
 // Figma 공통 컴포넌트 Tag (node 171:522). 길이는 Figma px ÷ 16 으로 rem 환산.
@@ -51,6 +53,12 @@ export const Tag = styled.button<{ $variant: TagVariant; $selected: boolean }>`
   &:disabled {
     cursor: not-allowed;
   }
+
+  --interaction-hover: ${({ $selected, theme }) =>
+    $selected
+      ? `color-mix(in srgb, ${theme.colors.violet.vt200} 85%, ${theme.colors.violet.vt500})`
+      : theme.colors.violet.vt200};
+  ${subtleInteraction};
 `;
 
 export const RemoveIcon = styled.span`

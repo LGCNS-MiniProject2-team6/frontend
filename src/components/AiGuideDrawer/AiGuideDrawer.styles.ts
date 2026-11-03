@@ -1,5 +1,7 @@
 import styled from 'styled-components';
 
+import { subtleInteraction } from '@/styles/interaction';
+
 import CloseIcon from '@/assets/icons/close.svg?react';
 
 export const Overlay = styled.button`
@@ -57,6 +59,8 @@ export const CloseButton = styled.button`
   border-radius: 0.5rem;
   background-color: transparent;
   cursor: pointer;
+
+  ${subtleInteraction};
 `;
 
 export const CloseIconGlyph = styled(CloseIcon)`

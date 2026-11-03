@@ -1,5 +1,7 @@
 import styled, { type DefaultTheme } from 'styled-components';
 
+import { subtleInteraction } from '@/styles/interaction';
+
 import TocDotIcon from '@/assets/icons/toc-dot.svg?react';
 
 // KEY 가 제일 진하고, REF · LIGHT · SKIP 순으로 옅어지는 4단계 배지 색상
@@ -44,6 +46,8 @@ export const Row = styled.button<{ $highlighted: boolean }>`
   background-color: ${({ $highlighted, theme }) =>
     $highlighted ? theme.colors.violet.vt200 : 'transparent'};
   cursor: pointer;
+
+  ${subtleInteraction};
 `;
 
 export const AccentBar = styled.span<{ $highlighted: boolean }>`

@@ -1,5 +1,7 @@
 import styled from 'styled-components';
 
+import { subtleInteraction } from '@/styles/interaction';
+
 import ChevronDownSvg from '@/assets/icons/chevron-down.svg?react';
 
 // Figma 공통 컴포넌트 Dropdown (node 256:440). 길이는 Figma px ÷ 16 으로 rem 환산.
@@ -19,6 +21,8 @@ export const Select = styled.select`
   color: ${({ theme }) => theme.colors.grayScale.black};
   cursor: pointer;
   appearance: none;
+
+  ${subtleInteraction};
 `;
 
 export const Chevron = styled(ChevronDownSvg)`

@@ -94,6 +94,16 @@ export const Group = styled.div`
   align-items: center;
   gap: 1.5rem;
   text-align: center;
+
+  @media (hover: hover) and (pointer: fine) {
+    button:hover & {
+      filter: saturate(1.4);
+    }
+  }
+
+  button:active & {
+    filter: brightness(0.92);
+  }
 `;
 
 // 한 바퀴 등장 → 천천히 계속 회전
