@@ -1,3 +1,4 @@
+import { BookmarkButton } from '@/components/bookmark-button';
 import styled, { keyframes } from 'styled-components';
 
 import { subtleInteraction } from '@/styles/interaction';
@@ -122,19 +123,24 @@ export const IconButton = styled.a`
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
-  width: 2.125rem;
-  height: 2.125rem;
+  width: 2.75rem;
+  height: 2.75rem;
   border: none;
   border-radius: 0.5rem;
   background-color: ${({ theme }) => theme.colors.violet.vt200};
   cursor: pointer;
 
+  --interaction-hover: color-mix(
+    in srgb,
+    ${({ theme }) => theme.colors.violet.vt200} 85%,
+    ${({ theme }) => theme.colors.violet.vt500}
+  );
   ${subtleInteraction};
 `;
 
 export const ExternalLinkIconGlyph = styled(ExternalLinkIcon)`
-  width: 0.875rem;
-  height: 0.875rem;
+  width: 1.25rem;
+  height: 1.25rem;
 `;
 
 export const Body = styled.div`
@@ -466,4 +472,15 @@ export const AiGuideToggle = styled.button`
 export const AiGuideToggleIcon = styled(AiGuideIcon)`
   width: 1.25rem;
   height: 1.25rem;
+`;
+
+export const DetailBookmarkButton = styled(BookmarkButton)`
+  width: 2.75rem;
+  height: 2.75rem;
+  border-radius: 0.5rem;
+
+  svg {
+    width: 1.25rem;
+    height: 1.25rem;
+  }
 `;

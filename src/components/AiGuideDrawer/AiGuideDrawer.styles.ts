@@ -2,7 +2,7 @@ import styled, { keyframes } from 'styled-components';
 
 import { subtleInteraction } from '@/styles/interaction';
 
-import CloseIcon from '@/assets/icons/close.svg?react';
+import CloseIcon from '@/components/close-icon/CloseIcon';
 
 export const Overlay = styled.button`
   position: fixed;
@@ -58,8 +58,10 @@ export const CloseButton = styled.button`
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 1.75rem;
-  height: 1.75rem;
+  width: 2.75rem;
+  height: 2.75rem;
+  flex-shrink: 0;
+  padding: 0;
   border: none;
   border-radius: 0.5rem;
   background-color: transparent;
@@ -69,8 +71,8 @@ export const CloseButton = styled.button`
 `;
 
 export const CloseIconGlyph = styled(CloseIcon)`
-  width: 0.6875rem;
-  height: 0.6875rem;
+  width: 1.5rem;
+  height: 1.5rem;
 `;
 
 const reveal = keyframes`from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; }`;

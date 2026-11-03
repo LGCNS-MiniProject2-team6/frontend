@@ -1,3 +1,4 @@
+import CloseIcon from '@/components/close-icon/CloseIcon';
 import { useRef, useState } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
 
@@ -141,7 +142,7 @@ export default function Header() {
       >
         <S.MobilePanel ref={mobileMotion.panel as React.RefObject<HTMLDivElement>}>
           <S.IconButton type="button" aria-label="메뉴 닫기" onClick={closeMobile}>
-            <span aria-hidden="true">×</span>
+            <CloseIcon />
           </S.IconButton>
           <S.Nav aria-label="주 메뉴">{navigation}</S.Nav>
         </S.MobilePanel>

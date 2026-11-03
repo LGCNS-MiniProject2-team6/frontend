@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 
-import { AiGuideDrawer, BookmarkButton, Button, Hashtag, StateNotice } from '@/components';
+import { AiGuideDrawer, Button, Hashtag, StateNotice } from '@/components';
 import { PATHS } from '@/constants/paths';
 import { showErrorToast, toast, type ApiError } from '@/lib';
 import { addBookmark, removeBookmark } from '@/services/bookmark';
@@ -185,7 +185,7 @@ export default function Blog() {
             >
               <S.ExternalLinkIconGlyph />
             </S.IconButton>
-            <BookmarkButton bookmarked={bookmarked} onClick={handleBookmarkToggle} />
+            <S.DetailBookmarkButton bookmarked={bookmarked} onClick={handleBookmarkToggle} />
           </S.TitleRow>
         </S.TitleBlock>
       </S.Header>
