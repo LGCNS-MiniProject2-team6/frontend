@@ -1,6 +1,8 @@
 import { useRef, useState } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
 
+import NotificationMenu from '@/components/notification-menu/NotificationMenu';
+
 import { WarningModal } from '@/components';
 import { PATHS } from '@/constants/paths';
 import { logout } from '@/services/auth';
@@ -67,19 +69,7 @@ export default function Header() {
         <S.DesktopNav aria-label="주 메뉴">{navigation}</S.DesktopNav>
       </S.Start>
       <S.Actions>
-        <S.IconButton type="button" disabled aria-label="알림 준비 중" title="알림 준비 중">
-          <svg
-            width="20"
-            height="20"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="1.7"
-            aria-hidden="true"
-          >
-            <path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9M10 21h4" />
-          </svg>
-        </S.IconButton>
+        <NotificationMenu />
         <S.Profile
           ref={profileMenu}
           onKeyDown={(event) => {
