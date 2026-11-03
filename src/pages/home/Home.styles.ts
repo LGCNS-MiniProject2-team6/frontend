@@ -6,6 +6,12 @@ export const Container = styled.div`
   flex-direction: column;
   gap: 2.4375rem;
   padding: 3.3125rem 1.875rem;
+
+  @media (width <= 48rem) {
+    padding: 1rem;
+    overflow-wrap: anywhere;
+  }
+
 `;
 
 export const Heading = styled.div`

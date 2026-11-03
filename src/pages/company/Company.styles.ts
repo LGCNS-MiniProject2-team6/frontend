@@ -6,6 +6,12 @@ export const Container = styled.div`
   flex-direction: column;
   gap: 0.8125rem;
   padding: 1.625rem 1.75rem;
+
+  @media (width <= 48rem) {
+    padding: 1rem;
+    overflow-wrap: anywhere;
+  }
+
 `;
 
 export const Top = styled.div`
@@ -24,6 +30,11 @@ export const InfoCard = styled.section`
   border-radius: 1rem;
   background-color: ${({ theme }) => theme.colors.violet.vt000};
   box-shadow: 0 3px 16px 0 rgb(0 0 0 / 6%);
+
+  @media (width <= 48rem) {
+    padding: 1rem;
+  }
+
 `;
 
 export const CompanyHeader = styled.div`
@@ -125,6 +136,8 @@ export const Controls = styled.div`
   align-items: center;
   justify-content: space-between;
   gap: 1rem;
+  flex-wrap: wrap;
+
 `;
 
 export const ToggleGroup = styled.div`
