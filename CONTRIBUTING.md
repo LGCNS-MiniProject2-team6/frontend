@@ -120,3 +120,15 @@ export const getBooths = () => axiosInstance.get('/booths');
 - 리뷰 승인 1명 이상을 받은 뒤 병합합니다.
 - PR 본문은 `수정사항` / `스크린샷` / `메모`로 구성합니다. 변경 한 덩어리당 한 줄로 쓰고, 스크린샷이 없으면 해당 절을 생략합니다.
 - 버그와 기능 이슈는 `.github/ISSUE_TEMPLATE/`의 양식을 사용합니다.
+
+## 9. PR 자동 검사
+
+`develop`과 `main` 대상 PR에서 GitHub Actions가 Node.js 24와 Yarn Classic 1.22.22로 빌드, ESLint, Stylelint를 실행합니다.
+로컬에서도 같은 버전으로 아래 명령을 실행할 수 있습니다.
+
+```bash
+yarn install --frozen-lockfile
+yarn build
+yarn lint
+yarn lint:style
+```
