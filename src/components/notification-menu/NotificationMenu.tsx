@@ -13,6 +13,7 @@ interface NotificationMenuProps {
   items?: NotificationItem[];
   loading?: boolean;
   error?: string;
+  actionError?: string;
   unreadCount?: number;
   onOpen?: () => void;
   hasMore?: boolean;
@@ -26,6 +27,7 @@ export default function NotificationMenu({
   items = [],
   loading = false,
   error,
+  actionError,
   onRetry,
   onSelect,
   selecting = false,
@@ -95,6 +97,7 @@ export default function NotificationMenu({
           </S.Trigger>
         </S.Heading>
         <S.Body aria-busy={loading}>
+          {actionError && <S.Message role="alert">{actionError}</S.Message>}
           {loading && <S.Message role="status">알림을 불러오고 있어요</S.Message>}
           {error && (
             <S.Error>

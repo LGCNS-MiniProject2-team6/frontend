@@ -1,6 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import toast from 'react-hot-toast';
 import { toBlog } from '@/constants/paths';
 import NotificationMenu from '@/components/notification-menu/NotificationMenu';
 import { getNotifications, markNotificationRead, type Notification } from '@/services/notification';
@@ -23,6 +22,7 @@ function SessionNotifications() {
   const [totalPages, setTotalPages] = useState(0);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string>();
+  const [actionError, setActionError] = useState<string>();
   const failedPage = useRef(0);
   const request = useRef<AbortController | null>(null);
 
@@ -67,6 +67,7 @@ function SessionNotifications() {
     if (selectingRef.current) return false;
     const item = items.find((entry) => String(entry.id) === id);
     if (!item) return false;
+    setActionError(undefined);
     selectingRef.current = true;
     setSelecting(true);
     request.current?.abort();
@@ -95,10 +96,10 @@ function SessionNotifications() {
           /* Invalid original URL: keep the panel open. */
         }
       }
-      toast.error('이 게시글의 이동 정보를 찾을 수 없어요.');
+      setActionError('이 게시글의 이동 정보를 찾을 수 없어요.');
       return false;
     } catch {
-      if (alive.current) toast.error('읽음 처리에 실패했어요. 알림을 다시 눌러 주세요.');
+      if (alive.current) setActionError('읽음 처리에 실패했어요. 알림을 다시 눌러 주세요.');
       return false;
     } finally {
       selectingRef.current = false;
@@ -118,7 +119,9 @@ function SessionNotifications() {
       unreadCount={unreadCount}
       loading={loading}
       error={error}
+      actionError={actionError}
       onOpen={() => {
+        setActionError(undefined);
         if (!selectingRef.current) void load(0);
       }}
       onRetry={() => void load(failedPage.current)}
