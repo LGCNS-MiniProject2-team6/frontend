@@ -3,7 +3,7 @@ import { useLocation, useNavigate, useParams } from 'react-router-dom';
 
 import { AiGuideDrawer, BookmarkButton, Button, Hashtag, StateNotice } from '@/components';
 import { PATHS } from '@/constants/paths';
-import { showErrorToast, type ApiError } from '@/lib';
+import { showErrorToast, toast, type ApiError } from '@/lib';
 import { addBookmark, removeBookmark } from '@/services/bookmark';
 import { getPostDetail } from '@/services/post';
 import { theme } from '@/styles/theme';
@@ -77,10 +77,14 @@ export default function Blog() {
       if (!alreadyDone) {
         setBookmarked(!next);
         showErrorToast(error as ApiError);
+        return;
       }
     } finally {
       pendingBookmark.current = false;
     }
+    toast.success(next ? '북마크에 저장했어요' : '북마크에서 삭제했어요', {
+      id: 'bookmark-feedback',
+    });
   };
 
   const highlightStyle = useMemo(() => {

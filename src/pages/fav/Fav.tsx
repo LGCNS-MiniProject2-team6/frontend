@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { ArticleCard, StateNotice } from '@/components';
 import type { ArticleCardPost } from '@/components';
 import { PATHS } from '@/constants/paths';
-import { showErrorToast, type ApiError } from '@/lib';
+import { showErrorToast, toast, type ApiError } from '@/lib';
 import { getBookmarks, removeBookmark } from '@/services/bookmark';
 import type { BookmarkItem } from '@/types/bookmark';
 
@@ -57,10 +57,12 @@ export default function Fav() {
             : prev,
         );
         showErrorToast(apiError);
+        return;
       }
     } finally {
       pendingRemovals.current.delete(postId);
     }
+    toast.success('북마크에서 삭제했어요', { id: 'bookmark-feedback' });
   };
 
   if (state.status === 'loading') {

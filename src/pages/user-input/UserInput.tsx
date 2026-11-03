@@ -36,6 +36,7 @@ export default function UserInput() {
   const handleSubmit = async (request: ProfileRequest) => {
     try {
       await createProfile(request);
+      toast.success('내 정보를 저장했어요', { id: 'profile-saved' });
     } catch (error) {
       // 이미 저장한 사용자(뒤로 가기로 돌아왔거나 다른 탭에서 저장한 경우)는 막지 않고 목록으로 보낸다
       if ((error as ApiError).code !== 'PROFILE_ALREADY_EXISTS') throw error;

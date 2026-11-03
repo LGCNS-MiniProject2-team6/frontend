@@ -31,7 +31,7 @@ export default function MyPage() {
 
   const handleSubmit = async (request: ProfileRequest) => {
     await updateProfile(request);
-    toast.success('내 정보를 저장했어요');
+    toast.success('내 정보를 저장했어요', { id: 'profile-saved' });
   };
 
   const renderContent = () => {
