@@ -65,6 +65,12 @@ export const Name = styled.p`
   ${({ theme }) => theme.fonts.header.h3};
   color: ${({ theme }) => theme.colors.grayScale.black};
   white-space: nowrap;
+
+  @media (width <= 48rem) {
+    white-space: normal;
+    overflow-wrap: anywhere;
+  }
+
 `;
 
 export const RecommendBadge = styled(RecommendBadgeSvg)`
