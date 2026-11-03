@@ -1,5 +1,7 @@
 import styled, { css } from 'styled-components';
 
+import { subtleInteraction } from '@/styles/interaction';
+
 import type { ButtonVariant } from './Button.types';
 
 // Figma 공통 컴포넌트 Button (node 171:509). 길이는 Figma px ÷ 16 으로 rem 환산.
@@ -53,19 +55,21 @@ export const Button = styled.button<{ $variant: ButtonVariant }>`
     cursor: not-allowed;
   }
 
-  &:active:not(:disabled) {
-    filter: brightness(0.92);
-  }
-
-  @media (hover: hover) and (pointer: fine) {
-    &:hover:not(:disabled) {
-      filter: brightness(0.96);
-    }
-  }
-
   &[aria-busy] {
     cursor: progress;
   }
+
+  --interaction-hover: ${({ $variant, theme }) =>
+    $variant === 'primary' || $variant === 'warning'
+      ? 'color-mix(in srgb, ' + theme.colors.violet.vt500 + ' 88%, black)'
+      : $variant === 'soft'
+        ? 'color-mix(in srgb, ' +
+          theme.colors.violet.vt200 +
+          ' 90%, ' +
+          theme.colors.violet.vt500 +
+          ')'
+        : theme.colors.violet.vt200};
+  ${subtleInteraction};
 `;
 
 export const Label = styled.span<{ $hidden: boolean }>`

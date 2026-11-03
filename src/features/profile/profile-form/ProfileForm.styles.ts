@@ -1,5 +1,7 @@
 import styled, { css } from 'styled-components';
 
+import { subtleInteraction } from '@/styles/interaction';
+
 import { Button } from '@/components';
 
 import type { ProfileFormVariant } from './ProfileForm.types';
@@ -49,6 +51,8 @@ export const AddButton = styled.button`
   background-color: ${({ theme }) => theme.colors.grayScale.white};
   color: ${({ theme }) => theme.colors.grayScale.black};
   ${({ theme }) => theme.fonts.body.small400};
+
+  ${subtleInteraction};
 `;
 
 // 오류 전용 색 변수가 아직 없어서 주 색(vt500)으로 표시한다

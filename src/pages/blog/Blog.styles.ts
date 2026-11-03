@@ -1,5 +1,7 @@
 import styled, { keyframes } from 'styled-components';
 
+import { subtleInteraction } from '@/styles/interaction';
+
 import ChevronLeftIcon from '@/assets/icons/chevron-left.svg?react';
 import ExternalLinkIcon from '@/assets/icons/external-link.svg?react';
 import AiGuideIcon from '@/assets/icons/ai-guide.svg?react';
@@ -55,6 +57,8 @@ export const BackButton = styled.button`
   border-radius: 0.5rem;
   background-color: transparent;
   cursor: pointer;
+
+  ${subtleInteraction};
 `;
 
 export const BackIcon = styled(ChevronLeftIcon)`
@@ -116,6 +120,8 @@ export const IconButton = styled.a`
   border-radius: 0.5rem;
   background-color: ${({ theme }) => theme.colors.violet.vt200};
   cursor: pointer;
+
+  ${subtleInteraction};
 `;
 
 export const ExternalLinkIconGlyph = styled(ExternalLinkIcon)`
@@ -432,6 +438,9 @@ export const AiGuideToggle = styled.button`
     background-color: ${({ theme }) => theme.colors.violet.vt500};
     animation: ${ring} 1s ease-out 3;
   }
+
+  --interaction-hover: color-mix(in srgb, ${({ theme }) => theme.colors.violet.vt500} 88%, black);
+  ${subtleInteraction};
 `;
 
 export const AiGuideToggleIcon = styled(AiGuideIcon)`

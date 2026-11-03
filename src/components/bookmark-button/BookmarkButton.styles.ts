@@ -1,5 +1,7 @@
 import styled from 'styled-components';
 
+import { subtleInteraction } from '@/styles/interaction';
+
 import BookmarkFilledSvg from '@/assets/icons/bookmark-filled.svg?react';
 import BookmarkOutlineSvg from '@/assets/icons/bookmark-outline.svg?react';
 
@@ -17,10 +19,11 @@ export const Button = styled.button<{ $bookmarked: boolean }>`
   background-color: ${({ $bookmarked, theme }) =>
     $bookmarked ? theme.colors.violet.vt200 : theme.colors.grayScale.white};
 
-  &:hover:not(:disabled) {
-    background-color: ${({ $bookmarked, theme }) =>
-      $bookmarked ? theme.colors.violet.vt200 : theme.colors.grayScale.gy100};
-  }
+  --interaction-hover: ${({ $bookmarked, theme }) =>
+    $bookmarked
+      ? `color-mix(in srgb, ${theme.colors.violet.vt200} 90%, ${theme.colors.violet.vt500})`
+      : theme.colors.violet.vt200};
+  ${subtleInteraction};
 `;
 
 export const OutlineIcon = styled(BookmarkOutlineSvg)`

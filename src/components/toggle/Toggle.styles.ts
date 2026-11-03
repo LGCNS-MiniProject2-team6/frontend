@@ -1,5 +1,7 @@
 import styled from 'styled-components';
 
+import { subtleInteraction } from '@/styles/interaction';
+
 // Figma 공통 컴포넌트 Toggle (node 306:759). 길이는 Figma px ÷ 16 으로 rem 환산.
 export const Track = styled.button<{ $checked: boolean }>`
   position: relative;
@@ -12,6 +14,10 @@ export const Track = styled.button<{ $checked: boolean }>`
   background-color: ${({ $checked, theme }) =>
     $checked ? theme.colors.violet.vt500 : theme.colors.grayScale.gy100};
   transition: background-color 0.15s ease;
+
+  --interaction-hover: ${({ $checked, theme }) =>
+    $checked ? theme.colors.violet.vt700 : theme.colors.violet.vt200};
+  ${subtleInteraction};
 `;
 
 export const Thumb = styled.span<{ $checked: boolean }>`
