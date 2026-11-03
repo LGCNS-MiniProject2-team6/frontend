@@ -75,16 +75,22 @@ export const Card = styled.div`
   border-radius: ${({ theme }) => theme.radius.card};
   background-color: ${({ theme }) => theme.colors.violet.vt000};
   box-shadow: 0 3px 16px 0 rgb(0 0 0 / 6%);
+
+  @media (width <= 48rem) {
+    padding: 1rem;
+  }
 `;
 
 export const Row = styled.div`
   display: flex;
   gap: 1rem;
   align-items: flex-start;
+  flex-wrap: wrap;
 `;
 
 export const NameField = styled(Field)`
   width: 15rem;
+  max-width: 100%;
 `;
 
 // 이름은 구글 계정 이름이라 고칠 수 없다. 경력 입력칸과 같은 모양의 상자로만 보여 준다

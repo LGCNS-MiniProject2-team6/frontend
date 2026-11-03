@@ -85,6 +85,10 @@ export const Body = styled.button<{ $leaving: boolean }>`
     css`
       animation: ${fadeOut} ${FADE_OUT_MS}ms ease-in forwards;
     `}
+  @media (width <= 48rem) {
+    padding: 1rem;
+    overflow-wrap: anywhere;
+  }
 `;
 
 export const Group = styled.div`

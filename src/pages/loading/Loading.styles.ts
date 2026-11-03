@@ -14,6 +14,11 @@ export const Content = styled.div`
   flex-direction: column;
   align-items: center;
   gap: 1.5rem;
+
+  @media (width <= 48rem) {
+    padding: 1rem;
+    overflow-wrap: anywhere;
+  }
 `;
 
 export const Title = styled.h1`
