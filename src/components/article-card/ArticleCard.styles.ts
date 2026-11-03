@@ -20,10 +20,20 @@ export const Card = styled.article`
     box-shadow 0.15s ease,
     transform 0.15s ease;
 
-  &:hover {
-    border-color: ${({ theme }) => theme.colors.violet.vt200};
-    box-shadow: 0 4px 16px 0 rgb(0 0 0 / 8%);
-    transform: translateY(-0.125rem);
+  @media (hover: hover) and (pointer: fine) {
+    &:hover {
+      border-color: ${({ theme }) => theme.colors.violet.vt200};
+      box-shadow: 0 4px 16px 0 rgb(0 0 0 / 8%);
+      transform: translateY(-0.125rem);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    transition: none;
+
+    &:hover {
+      transform: none;
+    }
   }
 `;
 
@@ -77,6 +87,11 @@ export const TitleLink = styled(Link)`
     inset: 0;
     border-radius: inherit;
     content: '';
+  }
+
+  &:focus-visible::after {
+    outline: 2px solid ${({ theme }) => theme.colors.violet.vt500};
+    outline-offset: 2px;
   }
 `;
 

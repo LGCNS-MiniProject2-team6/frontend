@@ -32,6 +32,11 @@ export const GlobalStyle = createGlobalStyle`
         text-decoration: none;
     }
 
+    :is(a, button, input, select, textarea):focus-visible {
+        outline: 2px solid ${({ theme }) => theme.colors.violet.vt500};
+        outline-offset: 2px;
+    }
+
     button {
         cursor: pointer;
     }

@@ -12,6 +12,10 @@ export const Container = styled.label`
   border-radius: ${({ theme }) => theme.radius.control};
   background-color: ${({ theme }) => theme.colors.grayScale.white};
   cursor: text;
+
+  &:focus-within {
+    border-color: ${({ theme }) => theme.colors.violet.vt500};
+  }
 `;
 
 export const Icon = styled(SearchSvg)`

@@ -16,11 +16,6 @@ const variantStyle = {
     padding: 0.75rem 1.25rem;
     background-color: ${({ theme }) => theme.colors.grayScale.white};
     color: ${({ theme }) => theme.colors.grayScale.black};
-
-    &:hover:not(:disabled) {
-      background-color: ${({ theme }) => theme.colors.violet.vt200};
-      color: ${({ theme }) => theme.colors.violet.vt500};
-    }
   `,
 
   // 되돌릴 수 없는 확인 액션용 (나가기 등)
@@ -56,6 +51,16 @@ export const Button = styled.button<{ $variant: ButtonVariant }>`
     background-color: ${({ theme }) => theme.colors.grayScale.gy100};
     color: ${({ theme }) => theme.colors.grayScale.gy300};
     cursor: not-allowed;
+  }
+
+  &:active:not(:disabled) {
+    filter: brightness(0.92);
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    &:hover:not(:disabled) {
+      filter: brightness(0.96);
+    }
   }
 
   &[aria-busy] {
