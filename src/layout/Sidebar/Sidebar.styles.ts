@@ -13,6 +13,13 @@ export const Container = styled.aside`
   height: 100vh;
   padding: 1.375rem 0.875rem 1.25rem;
   background-color: ${({ theme }) => theme.colors.violet.vt000};
+
+  @media (width <= 48rem) {
+    position: static;
+    width: 100%;
+    height: auto;
+  }
+
 `;
 
 export const LogoRow = styled.div`
@@ -39,4 +46,9 @@ export const Spacer = styled.div`
 export const FlexSpacer = styled.div`
   flex: 1;
   width: 100%;
+
+  @media (width <= 48rem) {
+    display: none;
+  }
+
 `;
