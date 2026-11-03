@@ -1,6 +1,7 @@
 import { useRef, useState } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
 
+import { usePanelMotion } from '@/hooks/usePanelMotion';
 import NotificationCenter from '@/features/notification/NotificationCenter';
 
 import { WarningModal } from '@/components';
@@ -15,6 +16,13 @@ const MENU_ITEMS = [
 ];
 
 export default function Header() {
+  const mobileMotion = usePanelMotion('left');
+  const profileMotion = usePanelMotion('popup');
+  const closeMobile = () => void mobileMotion.close(() => mobileMenu.current?.close());
+  const closeProfile = () =>
+    void profileMotion.close(() => {
+      if (profileMenu.current) profileMenu.current.open = false;
+    });
   const mobileMenu = useRef<HTMLDialogElement>(null);
   const profileMenu = useRef<HTMLDetailsElement>(null);
   const navigate = useNavigate();
@@ -39,7 +47,7 @@ export default function Header() {
   };
 
   const navigation = MENU_ITEMS.map(({ label, path }) => (
-    <NavLink key={path} to={path} onClick={() => mobileMenu.current?.close()}>
+    <NavLink key={path} to={path} onClick={closeMobile}>
       {label}
     </NavLink>
   ));
@@ -51,7 +59,10 @@ export default function Header() {
           type="button"
           aria-label="메뉴 열기"
           aria-haspopup="dialog"
-          onClick={() => mobileMenu.current?.showModal()}
+          onClick={() => {
+            mobileMenu.current?.showModal();
+            mobileMotion.enter();
+          }}
         >
           <svg
             width="20"
@@ -74,17 +85,28 @@ export default function Header() {
           ref={profileMenu}
           onKeyDown={(event) => {
             if (event.key === 'Escape' && event.currentTarget.open) {
-              event.currentTarget.open = false;
+              closeProfile();
               event.currentTarget.querySelector('summary')?.focus();
             }
           }}
         >
-          <S.ProfileTrigger>프로필</S.ProfileTrigger>
-          <S.ProfilePanel>
+          <S.ProfileTrigger
+            onClick={(event) => {
+              event.preventDefault();
+              if (profileMenu.current?.open) closeProfile();
+              else if (profileMenu.current) {
+                profileMenu.current.open = true;
+                profileMotion.enter();
+              }
+            }}
+          >
+            프로필
+          </S.ProfileTrigger>
+          <S.ProfilePanel ref={profileMotion.panel as React.RefObject<HTMLDivElement>}>
             <NavLink
               to={PATHS.MY_PAGE}
               onClick={() => {
-                if (profileMenu.current) profileMenu.current.open = false;
+                closeProfile();
               }}
             >
               마이페이지
@@ -92,8 +114,10 @@ export default function Header() {
             <button
               type="button"
               onClick={() => {
-                if (profileMenu.current) profileMenu.current.open = false;
-                setShowLogoutModal(true);
+                void profileMotion.close(() => {
+                  if (profileMenu.current) profileMenu.current.open = false;
+                  setShowLogoutModal(true);
+                });
               }}
             >
               로그아웃
@@ -102,18 +126,21 @@ export default function Header() {
         </S.Profile>
       </S.Actions>
       <S.MobileMenu
-        ref={mobileMenu}
+        ref={(element) => {
+          mobileMenu.current = element;
+          mobileMotion.surface.current = element;
+        }}
+        onCancel={(event) => {
+          event.preventDefault();
+          closeMobile();
+        }}
         aria-label="주 메뉴"
         onClick={(event) => {
-          if (event.target === event.currentTarget) event.currentTarget.close();
+          if (event.target === event.currentTarget) closeMobile();
         }}
       >
-        <S.MobilePanel>
-          <S.IconButton
-            type="button"
-            aria-label="메뉴 닫기"
-            onClick={() => mobileMenu.current?.close()}
-          >
+        <S.MobilePanel ref={mobileMotion.panel as React.RefObject<HTMLDivElement>}>
+          <S.IconButton type="button" aria-label="메뉴 닫기" onClick={closeMobile}>
             <span aria-hidden="true">×</span>
           </S.IconButton>
           <S.Nav aria-label="주 메뉴">{navigation}</S.Nav>
