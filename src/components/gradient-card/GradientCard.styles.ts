@@ -19,7 +19,6 @@ export const Container = styled.div`
   @media (width <= 64rem) {
     padding: clamp(1rem, 4vw, 2.5rem);
   }
-
 `;
 
 export const Card = styled.div`
@@ -27,7 +26,7 @@ export const Card = styled.div`
   justify-content: center;
   width: 65.25rem;
   min-height: 43.75rem;
-  border-radius: 1.5rem;
+  border-radius: ${({ theme }) => theme.radius.card};
   background-color: ${({ theme }) => theme.colors.violet.vt000};
   box-shadow: 0 1.875rem 5rem rgb(0 0 0 / 35%);
   max-width: 100%;
@@ -35,5 +34,4 @@ export const Card = styled.div`
   @media (width <= 48rem) {
     min-height: auto;
   }
-
 `;

@@ -13,7 +13,7 @@ export const Card = styled.article`
   width: 100%;
   padding: 1.25rem 1.375rem 1.125rem;
   border: 1px solid ${({ theme }) => theme.colors.grayScale.gy100};
-  border-radius: 0.75rem;
+  border-radius: ${({ theme }) => theme.radius.card};
   background-color: ${({ theme }) => theme.colors.grayScale.white};
   transition:
     border-color 0.15s ease,
@@ -46,7 +46,7 @@ export const Tags = styled.div`
 export const CompanyTag = styled.span`
   ${({ theme }) => theme.fonts.body.small400};
   padding: 0.1875rem 0.5625rem;
-  border-radius: 0.3125rem;
+  border-radius: ${({ theme }) => theme.radius.pill};
   background-color: ${({ theme }) => theme.colors.grayScale.gy900};
   color: ${({ theme }) => theme.colors.grayScale.white};
   white-space: nowrap;

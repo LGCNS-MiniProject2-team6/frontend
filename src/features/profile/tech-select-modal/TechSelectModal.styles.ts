@@ -21,7 +21,7 @@ export const Popup = styled.div`
   width: 27.5rem;
   max-width: 100%;
   padding: 2rem;
-  border-radius: 1.25rem;
+  border-radius: ${({ theme }) => theme.radius.modal};
   background-color: ${({ theme }) => theme.colors.violet.vt000};
   box-shadow: 0 1rem 3rem rgb(0 0 0 / 16%);
 `;

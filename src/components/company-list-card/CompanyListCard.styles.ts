@@ -13,7 +13,7 @@ export const Card = styled(Link)<{ $dimmed: boolean }>`
   width: 100%;
   padding: 1.125rem 1rem 1.125rem 1.25rem;
   border: 1px solid ${({ theme }) => theme.colors.grayScale.gy100};
-  border-radius: 0.875rem;
+  border-radius: ${({ theme }) => theme.radius.card};
   background-color: ${({ theme }) => theme.colors.grayScale.white};
   text-decoration: none;
   opacity: ${({ $dimmed }) => ($dimmed ? 0.5 : 1)};
