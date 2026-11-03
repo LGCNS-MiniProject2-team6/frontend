@@ -43,6 +43,11 @@ export const TopRow = styled.div`
   justify-content: space-between;
   gap: 1rem;
   width: 100%;
+
+  @media (width <= 48rem) {
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
 `;
 
 export const Tags = styled.div`
