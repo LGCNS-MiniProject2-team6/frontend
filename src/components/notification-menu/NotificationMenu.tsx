@@ -13,6 +13,10 @@ interface NotificationMenuProps {
   items?: NotificationItem[];
   loading?: boolean;
   error?: string;
+  unreadCount?: number;
+  onOpen?: () => void;
+  hasMore?: boolean;
+  onLoadMore?: () => void;
   onRetry?: () => void;
   onSelect?: (item: NotificationItem) => void;
 }
@@ -23,12 +27,15 @@ export default function NotificationMenu({
   error,
   onRetry,
   onSelect,
+  unreadCount = items.filter((item) => !item.isRead).length,
+  onOpen,
+  hasMore,
+  onLoadMore,
 }: NotificationMenuProps) {
   const dialog = useRef<HTMLDialogElement>(null);
   const trigger = useRef<HTMLButtonElement>(null);
   const titleId = useId();
   const [open, setOpen] = useState(false);
-  const unreadCount = items.filter((item) => !item.isRead).length;
 
   return (
     <>
@@ -41,6 +48,7 @@ export default function NotificationMenu({
         onClick={() => {
           dialog.current?.showModal();
           setOpen(true);
+          onOpen?.();
         }}
       >
         <svg
@@ -85,19 +93,17 @@ export default function NotificationMenu({
           </S.Trigger>
         </S.Heading>
         <S.Body aria-busy={loading}>
-          {loading ? (
-            <S.Message role="status">알림을 불러오고 있어요</S.Message>
-          ) : error ? (
+          {loading && <S.Message role="status">알림을 불러오고 있어요</S.Message>}
+          {error && (
             <S.Error>
               <S.Message role="alert">{error}</S.Message>
-              {onRetry && (
-                <S.Retry type="button" onClick={onRetry}>
-                  다시 시도
-                </S.Retry>
-              )}
+              <S.Retry type="button" disabled={loading} onClick={onRetry}>
+                다시 시도
+              </S.Retry>
             </S.Error>
-          ) : items.length === 0 ? (
-            <S.Message role="status">알림이 없어요</S.Message>
+          )}
+          {items.length === 0 ? (
+            !loading && !error && <S.Message role="status">알림이 없어요</S.Message>
           ) : (
             <S.List>
               {items.map((item) => (
@@ -119,6 +125,11 @@ export default function NotificationMenu({
                 </li>
               ))}
             </S.List>
+          )}
+          {hasMore && (
+            <S.Retry type="button" disabled={loading} onClick={onLoadMore}>
+              더 보기
+            </S.Retry>
           )}
         </S.Body>
       </S.Dialog>

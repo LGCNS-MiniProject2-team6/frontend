@@ -1,7 +1,7 @@
 import { useRef, useState } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
 
-import NotificationMenu from '@/components/notification-menu/NotificationMenu';
+import NotificationCenter from '@/features/notification/NotificationCenter';
 
 import { WarningModal } from '@/components';
 import { PATHS } from '@/constants/paths';
@@ -69,7 +69,7 @@ export default function Header() {
         <S.DesktopNav aria-label="주 메뉴">{navigation}</S.DesktopNav>
       </S.Start>
       <S.Actions>
-        <NotificationMenu />
+        <NotificationCenter />
         <S.Profile
           ref={profileMenu}
           onKeyDown={(event) => {
