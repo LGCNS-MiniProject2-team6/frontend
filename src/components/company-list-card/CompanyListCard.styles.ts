@@ -22,10 +22,20 @@ export const Card = styled(Link)<{ $dimmed: boolean }>`
     box-shadow 0.15s ease,
     transform 0.15s ease;
 
-  &:hover {
-    border-color: ${({ theme }) => theme.colors.violet.vt200};
-    box-shadow: 0 4px 16px 0 rgb(0 0 0 / 8%);
-    transform: translateY(-0.125rem);
+  @media (hover: hover) and (pointer: fine) {
+    &:hover {
+      border-color: ${({ theme }) => theme.colors.violet.vt200};
+      box-shadow: 0 4px 16px 0 rgb(0 0 0 / 8%);
+      transform: translateY(-0.125rem);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    transition: none;
+
+    &:hover {
+      transform: none;
+    }
   }
 `;
 
