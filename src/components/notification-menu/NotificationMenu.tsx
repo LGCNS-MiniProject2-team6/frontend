@@ -1,5 +1,7 @@
 import { useId, useRef, useState } from 'react';
 
+import { usePanelMotion } from '@/hooks/usePanelMotion';
+
 import * as S from './NotificationMenu.styles';
 
 export interface NotificationItem {
@@ -36,6 +38,8 @@ export default function NotificationMenu({
   hasMore,
   onLoadMore,
 }: NotificationMenuProps) {
+  const motion = usePanelMotion('right');
+  const close = () => void motion.close(() => dialog.current?.close());
   const dialog = useRef<HTMLDialogElement>(null);
   const trigger = useRef<HTMLButtonElement>(null);
   const titleId = useId();
@@ -51,6 +55,7 @@ export default function NotificationMenu({
         aria-expanded={open}
         onClick={() => {
           dialog.current?.showModal();
+          motion.enter();
           setOpen(true);
           onOpen?.();
         }}
@@ -71,7 +76,15 @@ export default function NotificationMenu({
         )}
       </S.Trigger>
       <S.Dialog
-        ref={dialog}
+        ref={(element) => {
+          dialog.current = element;
+          motion.panel.current = element;
+          motion.surface.current = element;
+        }}
+        onCancel={(event) => {
+          event.preventDefault();
+          close();
+        }}
         aria-labelledby={titleId}
         onClose={() => {
           setOpen(false);
@@ -86,13 +99,13 @@ export default function NotificationMenu({
             event.clientY < rect.top ||
             event.clientY > rect.bottom
           ) {
-            event.currentTarget.close();
+            close();
           }
         }}
       >
         <S.Heading>
           <S.Title id={titleId}>알림</S.Title>
-          <S.Trigger type="button" aria-label="알림 닫기" onClick={() => dialog.current?.close()}>
+          <S.Trigger type="button" aria-label="알림 닫기" onClick={close}>
             <span aria-hidden="true">×</span>
           </S.Trigger>
         </S.Heading>
@@ -118,7 +131,7 @@ export default function NotificationMenu({
                     $unread={!item.isRead}
                     disabled={selecting}
                     onClick={async () => {
-                      if (onSelect && (await onSelect(item))) dialog.current?.close();
+                      if (onSelect && (await onSelect(item))) close();
                     }}
                   >
                     {!item.isRead && <S.Unread>읽지 않음</S.Unread>}

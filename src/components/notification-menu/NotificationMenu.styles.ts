@@ -1,3 +1,4 @@
+import { dialogBackdropMotion } from '@/styles/panel-motion';
 import styled from 'styled-components';
 
 import { subtleInteraction } from '@/styles/interaction';
@@ -29,6 +30,7 @@ export const Badge = styled.span`
 `;
 
 export const Dialog = styled.dialog`
+  ${dialogBackdropMotion};
   position: fixed;
   inset: 4.5rem 1rem auto auto;
   width: 24rem;
