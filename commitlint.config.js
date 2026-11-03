@@ -1,1 +1,7 @@
-export default { extends: ['@commitlint/config-conventional'] };
+export default {
+  extends: ['@commitlint/config-conventional'],
+  rules: {
+    'scope-empty': [2, 'never'],
+    'type-enum': [2, 'always', ['feat', 'fix', 'docs', 'style', 'refactor', 'chore', 'test']],
+  },
+};
