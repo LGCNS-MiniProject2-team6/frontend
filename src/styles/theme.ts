@@ -55,6 +55,7 @@ const fonts = {
 };
 
 export const theme = {
+  radius: { control: '0.5rem', card: '0.75rem', modal: '1rem', pill: '999px' },
   colors,
   fonts,
 } as const;

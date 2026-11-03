@@ -8,7 +8,7 @@ const variantStyle = {
   pill: css<{ $selected: boolean }>`
     padding: 0.375rem 0.6875rem;
     border: 1px solid ${({ theme }) => theme.colors.grayScale.gy100};
-    border-radius: 62.5rem;
+    border-radius: ${({ theme }) => theme.radius.pill};
     background-color: ${({ theme }) => theme.colors.grayScale.white};
     color: ${({ theme }) => theme.colors.grayScale.gy700};
     ${({ theme }) => theme.fonts.body.small400};
@@ -33,7 +33,7 @@ const variantStyle = {
     gap: 0.375rem;
     padding: 0.5rem 0.625rem 0.5rem 0.875rem;
     border: none;
-    border-radius: 0.875rem;
+    border-radius: ${({ theme }) => theme.radius.pill};
     background-color: ${({ theme }) => theme.colors.violet.vt200};
     color: ${({ theme }) => theme.colors.violet.vt500};
     ${({ theme }) => theme.fonts.body.medium400};

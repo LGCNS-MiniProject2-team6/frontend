@@ -19,12 +19,11 @@ export const Popup = styled.div`
   width: 26rem;
   max-width: 100%;
   padding: 1.75rem 1.75rem 1.5rem;
-  border-radius: 1.25rem;
+  border-radius: ${({ theme }) => theme.radius.modal};
   background-color: ${({ theme }) => theme.colors.grayScale.white};
   box-shadow: 0 12px 20px 0 rgb(0 0 0 / 14%);
   max-height: calc(100dvh - 2rem);
   overflow-y: auto;
-
 `;
 
 export const IconBadge = styled.span`

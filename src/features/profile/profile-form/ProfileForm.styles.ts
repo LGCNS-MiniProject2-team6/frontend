@@ -27,7 +27,7 @@ export const CareerInput = styled.input`
   width: 12.5rem;
   padding: 0.6875rem 0.75rem;
   border: 1px solid ${({ theme }) => theme.colors.grayScale.gy100};
-  border-radius: 0.5rem;
+  border-radius: ${({ theme }) => theme.radius.control};
   outline: none;
   background-color: ${({ theme }) => theme.colors.grayScale.white};
   color: ${({ theme }) => theme.colors.grayScale.black};
@@ -45,7 +45,7 @@ export const CareerInput = styled.input`
 export const AddButton = styled.button`
   padding: 0.5rem 0.875rem;
   border: none;
-  border-radius: 0.875rem;
+  border-radius: ${({ theme }) => theme.radius.control};
   background-color: ${({ theme }) => theme.colors.grayScale.white};
   color: ${({ theme }) => theme.colors.grayScale.black};
   ${({ theme }) => theme.fonts.body.small400};
@@ -68,7 +68,7 @@ export const Card = styled.div`
   flex-direction: column;
   gap: 1.0625rem;
   padding: 1.625rem 1.875rem;
-  border-radius: 1rem;
+  border-radius: ${({ theme }) => theme.radius.card};
   background-color: ${({ theme }) => theme.colors.violet.vt000};
   box-shadow: 0 3px 16px 0 rgb(0 0 0 / 6%);
 `;
@@ -87,7 +87,7 @@ export const NameField = styled(Field)`
 export const ReadOnlyBox = styled.p`
   padding: 0.6875rem 0.75rem;
   border: 1px solid transparent;
-  border-radius: 0.625rem;
+  border-radius: ${({ theme }) => theme.radius.control};
   background-color: ${({ theme }) => theme.colors.grayScale.white};
   color: ${({ theme }) => theme.colors.grayScale.black};
   ${({ theme }) => theme.fonts.body.small400};
@@ -113,7 +113,6 @@ const settingsStyle = css`
   ${CareerInput} {
     width: 10rem;
     border-color: transparent;
-    border-radius: 0.625rem;
 
     &:focus {
       border-color: ${({ theme }) => theme.colors.violet.vt500};

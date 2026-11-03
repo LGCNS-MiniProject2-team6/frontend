@@ -9,7 +9,7 @@ export const Container = styled.label`
   align-items: center;
   width: 100%;
   padding: 0.6875rem 0.75rem;
-  border-radius: 0.75rem;
+  border-radius: ${({ theme }) => theme.radius.control};
   background-color: ${({ theme }) => theme.colors.grayScale.white};
   cursor: text;
 `;

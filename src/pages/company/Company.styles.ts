@@ -21,7 +21,7 @@ export const InfoCard = styled.section`
   gap: 0.625rem;
   width: 100%;
   padding: 1.375rem 1.625rem;
-  border-radius: 1rem;
+  border-radius: ${({ theme }) => theme.radius.card};
   background-color: ${({ theme }) => theme.colors.violet.vt000};
   box-shadow: 0 3px 16px 0 rgb(0 0 0 / 6%);
 `;
