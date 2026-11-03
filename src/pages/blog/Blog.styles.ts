@@ -435,8 +435,8 @@ export const NoticeDescription = styled.p`
 
 export const AiGuideToggle = styled.button`
   position: fixed;
-  right: 8.0625rem;
-  bottom: 2rem;
+  right: max(clamp(1rem, 3vw, 2rem), env(safe-area-inset-right));
+  bottom: max(clamp(1rem, 3vw, 2rem), env(safe-area-inset-bottom));
   display: flex;
   align-items: center;
   justify-content: center;
