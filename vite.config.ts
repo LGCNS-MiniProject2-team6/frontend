@@ -9,16 +9,12 @@ export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd(), '');
   return {
     server: {
-      port: 8080,
       proxy: {
         '/api': {
           target: env.VITE_API_BASE_URL,
           changeOrigin: true,
         },
       },
-    },
-    preview: {
-      port: 8080,
     },
     plugins: [
       react(),
