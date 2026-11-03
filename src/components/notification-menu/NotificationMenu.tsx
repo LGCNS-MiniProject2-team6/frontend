@@ -1,3 +1,4 @@
+import CloseIcon from '@/components/close-icon/CloseIcon';
 import { useId, useRef, useState } from 'react';
 
 import { usePanelMotion } from '@/hooks/usePanelMotion';
@@ -106,7 +107,7 @@ export default function NotificationMenu({
         <S.Heading>
           <S.Title id={titleId}>알림</S.Title>
           <S.Trigger type="button" aria-label="알림 닫기" onClick={close}>
-            <span aria-hidden="true">×</span>
+            <CloseIcon />
           </S.Trigger>
         </S.Heading>
         <S.Body aria-busy={loading}>

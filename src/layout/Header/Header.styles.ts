@@ -111,6 +111,8 @@ export const ProfilePanel = styled.div`
 
   a,
   button {
+    font-family: inherit;
+    ${({ theme }) => theme.fonts.body.medium400};
     padding: 0.625rem;
     border: none;
     border-radius: ${({ theme }) => theme.radius.control};
