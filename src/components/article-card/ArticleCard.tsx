@@ -1,4 +1,4 @@
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 import { BookmarkButton } from '@/components/bookmark-button';
 import { Button } from '@/components/button';
@@ -16,13 +16,14 @@ export default function ArticleCard({
   onBookmarkToggle,
 }: ArticleCardProps) {
   const navigate = useNavigate();
+  const location = useLocation();
   const blogPath = toBlog(String(companyId), String(post.postId));
   const date = post.publishedAt.slice(0, 10);
   // 서버에서 AI 가이드 응답을 받아온 뒤, AI 가이드가 열린 상태로 화면을 띄움
   const loadingState: LoadingLocationState = {
     to: blogPath,
     postId: post.postId,
-    forwardState: { openAiGuide: true },
+    forwardState: { openAiGuide: true, returnKey: location.key },
   };
 
   return (
