@@ -18,7 +18,8 @@ interface NotificationMenuProps {
   hasMore?: boolean;
   onLoadMore?: () => void;
   onRetry?: () => void;
-  onSelect?: (item: NotificationItem) => void;
+  selecting?: boolean;
+  onSelect?: (item: NotificationItem) => Promise<boolean>;
 }
 
 export default function NotificationMenu({
@@ -27,6 +28,7 @@ export default function NotificationMenu({
   error,
   onRetry,
   onSelect,
+  selecting = false,
   unreadCount = items.filter((item) => !item.isRead).length,
   onOpen,
   hasMore,
@@ -97,7 +99,7 @@ export default function NotificationMenu({
           {error && (
             <S.Error>
               <S.Message role="alert">{error}</S.Message>
-              <S.Retry type="button" disabled={loading} onClick={onRetry}>
+              <S.Retry type="button" disabled={loading || selecting} onClick={onRetry}>
                 다시 시도
               </S.Retry>
             </S.Error>
@@ -111,11 +113,9 @@ export default function NotificationMenu({
                   <S.Item
                     type="button"
                     $unread={!item.isRead}
-                    onClick={() => {
-                      if (onSelect) {
-                        onSelect(item);
-                        dialog.current?.close();
-                      }
+                    disabled={selecting}
+                    onClick={async () => {
+                      if (onSelect && (await onSelect(item))) dialog.current?.close();
                     }}
                   >
                     {!item.isRead && <S.Unread>읽지 않음</S.Unread>}
@@ -127,7 +127,7 @@ export default function NotificationMenu({
             </S.List>
           )}
           {hasMore && (
-            <S.Retry type="button" disabled={loading} onClick={onLoadMore}>
+            <S.Retry type="button" disabled={loading || selecting} onClick={onLoadMore}>
               더 보기
             </S.Retry>
           )}
