@@ -45,6 +45,10 @@ export const Header = styled.div`
   justify-content: space-between;
   gap: 1rem;
   padding: 1.25rem 7.5rem 1rem;
+
+  @media (width <= 64rem) {
+    padding: 1rem;
+  }
 `;
 
 export const BackButton = styled.button`
@@ -79,6 +83,8 @@ export const MetaRow = styled.div`
   align-items: center;
   gap: 0.625rem;
   width: 100%;
+  flex-wrap: wrap;
+  overflow-wrap: anywhere;
 `;
 
 export const Date = styled.p`
@@ -98,6 +104,8 @@ export const TitleRow = styled.div`
   align-items: center;
   gap: 0.875rem;
   width: 100%;
+  flex-wrap: wrap;
+  overflow-wrap: anywhere;
 `;
 
 export const Title = styled.h1`
@@ -142,6 +150,10 @@ export const OriginalArea = styled.div`
   align-items: center;
   min-width: 0;
   padding: 1.875rem 7.5rem;
+
+  @media (width <= 64rem) {
+    padding: 1rem;
+  }
 `;
 
 // 서버 contentHtml 을 그대로 그리는 영역
@@ -151,7 +163,6 @@ export const Content = styled.div`
   gap: 0.625rem;
   width: 100%;
   min-width: 0;
-  overflow-wrap: anywhere;
 
   h1,
   h2,
@@ -389,6 +400,15 @@ export const Content = styled.div`
 
   [role='row']:last-child [role='cell']:last-child {
     border-bottom-right-radius: 0.75rem;
+  }
+
+  overflow-wrap: anywhere;
+
+  @media (width <= 48rem) {
+    table {
+      display: block;
+      overflow-x: auto;
+    }
   }
 `;
 
