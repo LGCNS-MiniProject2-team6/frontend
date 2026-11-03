@@ -27,3 +27,7 @@ export async function getNotifications(page = 0, signal?: AbortSignal) {
   });
   return response.data;
 }
+
+export async function markNotificationRead(id: number) {
+  await axiosInstance.patch(`/api/notifications/${id}/read`);
+}

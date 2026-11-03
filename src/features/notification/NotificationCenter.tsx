@@ -1,6 +1,9 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import toast from 'react-hot-toast';
+import { toBlog } from '@/constants/paths';
 import NotificationMenu from '@/components/notification-menu/NotificationMenu';
-import { getNotifications, type Notification } from '@/services/notification';
+import { getNotifications, markNotificationRead, type Notification } from '@/services/notification';
 import { useAuthStore } from '@/stores/useAuthStore';
 
 // Refresh token identifies a login session and remains stable during access-token renewal.
@@ -10,6 +13,10 @@ export default function NotificationCenter() {
 }
 
 function SessionNotifications() {
+  const navigate = useNavigate();
+  const [selecting, setSelecting] = useState(false);
+  const selectingRef = useRef(false);
+  const alive = useRef(true);
   const [items, setItems] = useState<Notification[]>([]);
   const [unreadCount, setUnreadCount] = useState(0);
   const [page, setPage] = useState(0);
@@ -48,9 +55,56 @@ function SessionNotifications() {
   }, []);
 
   useEffect(() => {
+    alive.current = true;
     void load(0);
-    return () => request.current?.abort();
+    return () => {
+      alive.current = false;
+      request.current?.abort();
+    };
   }, [load]);
+
+  const select = async (id: string) => {
+    if (selectingRef.current) return false;
+    const item = items.find((entry) => String(entry.id) === id);
+    if (!item) return false;
+    selectingRef.current = true;
+    setSelecting(true);
+    request.current?.abort();
+    setLoading(false);
+    try {
+      if (!item.isRead) await markNotificationRead(item.id);
+      if (!alive.current) return false;
+      setItems((previous) =>
+        previous.map((entry) => (entry.id === item.id ? { ...entry, isRead: true } : entry)),
+      );
+      if (!item.isRead) setUnreadCount((count) => Math.max(0, count - 1));
+      // Reconcile the global badge with server state, including reads on other devices.
+      void load(0);
+      if (item.companyId && item.postId) {
+        navigate(toBlog(String(item.companyId), String(item.postId)));
+        return true;
+      }
+      if (item.originalUrl) {
+        try {
+          const url = new URL(item.originalUrl);
+          if (url.protocol === 'https:' || url.protocol === 'http:') {
+            window.location.assign(url.href);
+            return true;
+          }
+        } catch {
+          /* Invalid original URL: keep the panel open. */
+        }
+      }
+      toast.error('이 게시글의 이동 정보를 찾을 수 없어요.');
+      return false;
+    } catch {
+      if (alive.current) toast.error('읽음 처리에 실패했어요. 알림을 다시 눌러 주세요.');
+      return false;
+    } finally {
+      selectingRef.current = false;
+      if (alive.current) setSelecting(false);
+    }
+  };
 
   return (
     <NotificationMenu
@@ -59,10 +113,14 @@ function SessionNotifications() {
         id: String(item.id),
         dateLabel: item.createdAt.replace('T', ' ').slice(0, 16),
       }))}
+      selecting={selecting}
+      onSelect={(item) => select(item.id)}
       unreadCount={unreadCount}
       loading={loading}
       error={error}
-      onOpen={() => void load(0)}
+      onOpen={() => {
+        if (!selectingRef.current) void load(0);
+      }}
       onRetry={() => void load(failedPage.current)}
       hasMore={page + 1 < totalPages}
       onLoadMore={() => void load(page + 1)}
