@@ -8,7 +8,7 @@ import StatTopicIcon from '@/assets/icons/stat-topic.svg?react';
 import { ArticleCard, BackButton, Button, Dropdown, StateNotice, Toggle } from '@/components';
 import type { ArticleCardPost, DropdownOption } from '@/components';
 import { PATHS } from '@/constants/paths';
-import { showErrorToast, type ApiError } from '@/lib';
+import { showErrorToast, toast, type ApiError } from '@/lib';
 import { addBookmark, removeBookmark } from '@/services/bookmark';
 import { getCompanyDetail, getCompanyPosts } from '@/services/company';
 import type { CompanyDetail, CompanyPostsResponse, NameCount } from '@/types/company';
@@ -120,10 +120,14 @@ export default function Company() {
       if (!alreadyDone) {
         setBookmarkOverrides((prev) => ({ ...prev, [postId]: !next }));
         showErrorToast(error as ApiError);
+        return;
       }
     } finally {
       pendingBookmarks.current.delete(postId);
     }
+    toast.success(next ? '북마크에 저장했어요' : '북마크에서 삭제했어요', {
+      id: 'bookmark-feedback',
+    });
   };
 
   if (detailState.status === 'loading')
