@@ -108,24 +108,15 @@ export const getBooths = () => axiosInstance.get('/booths');
 - **pre-commit**: `lint-staged`가 변경된 `.ts/.tsx` 파일에 eslint --fix, prettier, stylelint --fix를 자동 실행
 - **commit-msg**: `commitlint`가 Conventional Commits 형식을 강제
 
-커밋 컨벤션:
-```
-feat: 새로운 기능 추가
-fix: 버그 수정
-docs: 문서 수정
-style: 코드 포맷팅, 세미콜론 누락 등 동작에 영향 없는 변경
-refactor: 코드 리팩토링
-test: 테스트 코드 추가/수정
-chore: 빌드/패키지 매니저 등 production code와 무관한 변경
-comment: 주석 추가/변경
-remove: 파일/폴더 삭제
-rename: 파일/폴더명 변경
-```
+커밋과 PR 제목은 `type(scope): 설명` 형식을 사용합니다.
+유형은 `feat` / `fix` / `docs` / `style` / `refactor` / `chore` / `test`를 사용합니다.
+설명 끝에 마침표를 붙이지 않습니다. 임시 커밋은 PR 전에 정리합니다.
 
----
+## 8. 브랜치 / PR / 이슈
 
-## 8. PR / 이슈
-
-- PR 생성 시 `.github/pull_request_template.md`가 자동 적용됩니다.
-- 버그/기능 이슈는 `.github/ISSUE_TEMPLATE/`의 양식을 사용하세요.
-
+- `main`은 제출·발표용, `develop`은 통합용입니다. 두 브랜치에는 직접 push하지 않습니다.
+- 팀 원격(`origin`)의 최신 `develop`을 기준으로 `feat/*`, `fix/*`, `chore/*` 등 작업 브랜치를 만들고 `develop`으로 PR을 엽니다.
+- `main` PR은 같은 저장소의 `develop`에서 올립니다. `check-main-source` 워크플로가 출처를 검사합니다.
+- 리뷰 승인 1명 이상을 받은 뒤 병합합니다.
+- PR 본문은 `수정사항` / `스크린샷` / `메모`로 구성합니다. 변경 한 덩어리당 한 줄로 쓰고, 스크린샷이 없으면 해당 절을 생략합니다.
+- 버그와 기능 이슈는 `.github/ISSUE_TEMPLATE/`의 양식을 사용합니다.
