@@ -1,0 +1,40 @@
+name: Frontend CI
+
+on:
+  pull_request:
+    branches: [develop, main]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+jobs:
+  checks:
+    name: Build and lint
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      HUSKY: '0'
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - name: Install Yarn Classic
+        run: npm install --global yarn@1.22.22
+      - name: Install dependencies
+        id: install
+        run: yarn install --frozen-lockfile
+      - name: Build
+        run: yarn build
+      - name: ESLint
+        if: ${{ !cancelled() && steps.install.outcome == 'success' }}
+        run: yarn lint
+      - name: Stylelint
+        if: ${{ !cancelled() && steps.install.outcome == 'success' }}
+        run: yarn lint:style
