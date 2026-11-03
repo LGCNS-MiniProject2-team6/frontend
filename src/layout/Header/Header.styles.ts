@@ -1,3 +1,4 @@
+import { dialogBackdropMotion } from '@/styles/panel-motion';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
@@ -121,6 +122,7 @@ export const ProfilePanel = styled.div`
 `;
 
 export const MobileMenu = styled.dialog`
+  ${dialogBackdropMotion};
   position: fixed;
   inset: 0;
   width: 100%;
@@ -146,15 +148,5 @@ export const MobilePanel = styled.div`
 
   nav {
     flex-direction: column;
-  }
-
-  @media (prefers-reduced-motion: no-preference) {
-    animation: slide-in 180ms ease-out;
-
-    @keyframes slide-in {
-      from {
-        transform: translateX(-100%);
-      }
-    }
   }
 `;
