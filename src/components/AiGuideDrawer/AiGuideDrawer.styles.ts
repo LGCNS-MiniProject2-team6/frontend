@@ -28,8 +28,10 @@ export const Drawer = styled.div`
 `;
 
 export const ScrollArea = styled.div`
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  grid-auto-rows: max-content;
+  align-content: start;
   gap: 1.5625rem;
   width: 100%;
   height: 100%;
