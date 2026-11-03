@@ -24,6 +24,12 @@ export const Popup = styled.div`
   border-radius: ${({ theme }) => theme.radius.modal};
   background-color: ${({ theme }) => theme.colors.violet.vt000};
   box-shadow: 0 1rem 3rem rgb(0 0 0 / 16%);
+  max-height: calc(100dvh - 2rem);
+  overflow-y: auto;
+
+  @media (width <= 48rem) {
+    padding: 1rem;
+  }
 `;
 
 export const Title = styled.h2`
