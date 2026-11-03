@@ -5,6 +5,11 @@ export const Container = styled.div`
   flex-direction: column;
   gap: ${({ theme }) => theme.spacing.sectionGap};
   padding: 1.625rem 1.75rem;
+
+  @media (width <= 48rem) {
+    padding: 1rem;
+    overflow-wrap: anywhere;
+  }
 `;
 
 export const Title = styled.h1`
