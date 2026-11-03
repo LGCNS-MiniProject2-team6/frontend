@@ -83,4 +83,12 @@ export const TitleLink = styled(Link)`
 export const Summary = styled.p`
   ${({ theme }) => theme.fonts.body.small400};
   color: ${({ theme }) => theme.colors.grayScale.gy900};
+  overflow-wrap: anywhere;
+
+  @media (width <= 48rem) {
+    display: box;
+    overflow: hidden;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+  }
 `;

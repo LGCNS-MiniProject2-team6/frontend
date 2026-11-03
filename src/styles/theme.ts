@@ -16,6 +16,14 @@ const createFontStyle = (
     Arial,
     sans-serif;
   font-size: ${size}rem;
+  ${
+    size >= 1.25 &&
+    css`
+      @media (width <= 48rem) {
+        font-size: clamp(${size * 0.8}rem, calc(${size * 0.65}rem + 1vw), ${size}rem);
+      }
+    `
+  };
   font-style: normal;
   font-weight: ${weight};
   line-height: ${lineHeightPercent}%;

@@ -64,7 +64,7 @@ export const TitleRow = styled.div`
 export const Name = styled.p`
   ${({ theme }) => theme.fonts.header.h3};
   color: ${({ theme }) => theme.colors.grayScale.black};
-  white-space: nowrap;
+  overflow-wrap: anywhere;
 `;
 
 export const RecommendBadge = styled(RecommendBadgeSvg)`
@@ -76,6 +76,14 @@ export const RecommendBadge = styled(RecommendBadgeSvg)`
 export const Description = styled.p`
   ${({ theme }) => theme.fonts.body.large400};
   color: ${({ theme }) => theme.colors.grayScale.gy900};
+  overflow-wrap: anywhere;
+
+  @media (width <= 48rem) {
+    display: box;
+    overflow: hidden;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+  }
 `;
 
 export const Tags = styled.div`
