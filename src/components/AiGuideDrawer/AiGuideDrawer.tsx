@@ -7,6 +7,8 @@ import { generateGuide } from '@/services/guide';
 import type { GuideResponse } from '@/types/guide';
 import type { PostSection } from '@/types/post';
 
+import { usePanelMotion } from '@/hooks/usePanelMotion';
+
 import * as S from './AiGuideDrawer.styles';
 
 type AiGuideDrawerProps = {
@@ -30,6 +32,12 @@ export default function AiGuideDrawer({
   onClose,
   onFocusSections,
 }: AiGuideDrawerProps) {
+  const motion = usePanelMotion('right');
+  const { enter, close: animateClose } = motion;
+  useEffect(() => {
+    enter();
+  }, [enter]);
+  const close = () => void animateClose(onClose);
   const [guideState, setGuideState] = useState<GuideState>({ status: 'loading' });
 
   const loadGuide = useCallback(() => {
@@ -40,7 +48,7 @@ export default function AiGuideDrawer({
         onFocusSections?.(data.focusSections);
       })
       .catch((error: ApiError) => setGuideState({ status: 'error', message: error.message }));
-  }, [postId]);
+  }, [postId, onFocusSections]);
 
   useEffect(() => {
     loadGuide();
@@ -76,38 +84,44 @@ export default function AiGuideDrawer({
 
   return (
     <>
-      <S.Overlay type="button" onClick={onClose} aria-label="AI 가이드 닫기" />
-      <S.Drawer>
+      <S.Overlay
+        ref={motion.backdrop as React.RefObject<HTMLButtonElement>}
+        type="button"
+        onClick={close}
+        aria-label="AI 가이드 닫기"
+      />
+      <S.Drawer ref={motion.panel as React.RefObject<HTMLDivElement>}>
         <S.ScrollArea>
           <S.Header>
             <S.Title>AI 읽기 가이드</S.Title>
-            <S.CloseButton type="button" onClick={onClose} aria-label="AI 가이드 닫기">
+            <S.CloseButton type="button" onClick={close} aria-label="AI 가이드 닫기">
               <S.CloseIconGlyph />
             </S.CloseButton>
           </S.Header>
 
-          {guideState.status === 'loading' && (
-            <StateNotice tone="loading" title="AI 가이드를 만들고 있어요" bare />
-          )}
-          {guideState.status === 'error' && (
-            <StateNotice
-              tone="error"
-              title="AI 가이드를 불러오지 못했어요"
-              description={guideState.message}
-              action={{ label: '다시 시도', onClick: loadGuide }}
-            />
-          )}
-          {guideState.status === 'done' && (
-            <S.Card>
-              {CARD_TITLES.map((title, index) => (
-                <S.CardSection key={title}>
-                  <S.CardSectionTitle>{title}</S.CardSectionTitle>
-                  <S.CardSectionBody>{cardTexts[index]}</S.CardSectionBody>
-                </S.CardSection>
-              ))}
-            </S.Card>
-          )}
-
+          <S.ResultArea>
+            {guideState.status === 'loading' && (
+              <StateNotice tone="loading" title="AI 가이드를 만들고 있어요" bare />
+            )}
+            {guideState.status === 'error' && (
+              <StateNotice
+                tone="error"
+                title="AI 가이드를 불러오지 못했어요"
+                description={guideState.message}
+                action={{ label: '다시 시도', onClick: loadGuide }}
+              />
+            )}
+            {guideState.status === 'done' && (
+              <S.Card>
+                {CARD_TITLES.map((title, index) => (
+                  <S.CardSection key={title}>
+                    <S.CardSectionTitle>{title}</S.CardSectionTitle>
+                    <S.CardSectionBody>{cardTexts[index]}</S.CardSectionBody>
+                  </S.CardSection>
+                ))}
+              </S.Card>
+            )}
+          </S.ResultArea>
           <S.TocLabel>목차</S.TocLabel>
           <S.TocList>
             {sections.map((section) => (

@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 
 import { subtleInteraction } from '@/styles/interaction';
 
@@ -73,7 +73,13 @@ export const CloseIconGlyph = styled(CloseIcon)`
   height: 0.6875rem;
 `;
 
+const reveal = keyframes`from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; }`;
+
 export const Card = styled.div`
+  @media (prefers-reduced-motion: no-preference) {
+    animation: ${reveal} 180ms ease-out;
+  }
+
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -114,4 +120,8 @@ export const TocList = styled.div`
   flex-direction: column;
   gap: 0.4375rem;
   width: 100%;
+`;
+
+export const ResultArea = styled.div`
+  min-height: 16rem;
 `;
