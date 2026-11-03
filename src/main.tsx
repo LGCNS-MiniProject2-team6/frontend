@@ -16,7 +16,7 @@ import {
   MyPage,
   UserInput,
 } from '@/pages';
-import Layout, { ProtectedRoute, SidebarLayout } from '@/layout';
+import Layout, { ProtectedRoute, HeaderLayout } from '@/layout';
 import { toasterProps } from '@/lib';
 import { ResponsiveGate } from '@/components';
 
@@ -45,7 +45,7 @@ const routes = createBrowserRouter([
         element: <ProtectedRoute />,
         children: [
           {
-            element: <SidebarLayout />,
+            element: <HeaderLayout />,
             children: [
               {
                 path: 'home',
@@ -60,6 +60,10 @@ const routes = createBrowserRouter([
                 element: <MyPage />,
               },
               {
+                path: ':companyId/:blogId',
+                element: <Blog />,
+              },
+              {
                 path: ':companyId',
                 element: <Company />,
               },
@@ -72,10 +76,6 @@ const routes = createBrowserRouter([
           {
             path: 'loading',
             element: <Loading />,
-          },
-          {
-            path: ':companyId/:blogId',
-            element: <Blog />,
           },
         ],
       },

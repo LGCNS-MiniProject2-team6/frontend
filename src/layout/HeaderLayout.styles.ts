@@ -2,12 +2,8 @@ import styled from 'styled-components';
 
 export const Container = styled.div`
   display: flex;
+  flex-direction: column;
   flex: 1;
-
-  @media (width <= 48rem) {
-    flex-direction: column;
-  }
-
 `;
 
 export const Content = styled.div`
