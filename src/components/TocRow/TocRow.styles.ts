@@ -62,7 +62,9 @@ export const AccentBar = styled.span<{ $highlighted: boolean }>`
 export const Order = styled.span`
   ${({ theme }) => theme.fonts.body.large400};
   flex-shrink: 0;
-  width: 0.75rem;
+  min-width: 2ch;
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
   color: ${({ theme }) => theme.colors.grayScale.gy500};
   text-align: center;
 `;

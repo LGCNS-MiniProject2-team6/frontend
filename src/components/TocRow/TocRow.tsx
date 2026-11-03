@@ -21,7 +21,7 @@ export default function TocRow({ order, title, highlighted = false, badge, onCli
   return (
     <S.Row type="button" $highlighted={highlighted} onClick={onClick}>
       <S.AccentBar $highlighted={highlighted} />
-      <S.Order>{order}</S.Order>
+      <S.Order>{String(order).padStart(2, '0')}</S.Order>
       <S.Title $highlighted={highlighted}>{title}</S.Title>
       {highlighted && <S.Dot />}
       {badge && <S.Badge $badge={badge}>{BADGE_LABELS[badge] ?? badge}</S.Badge>}
