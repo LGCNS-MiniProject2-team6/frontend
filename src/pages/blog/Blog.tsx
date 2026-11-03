@@ -2,7 +2,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 
 import { AiGuideDrawer, Button, Hashtag, StateNotice } from '@/components';
-import { PATHS } from '@/constants/paths';
+import { PATHS, toCompany } from '@/constants/paths';
 import { showErrorToast, toast, type ApiError } from '@/lib';
 import { addBookmark, removeBookmark } from '@/services/bookmark';
 import { getPostDetail } from '@/services/post';
@@ -31,7 +31,7 @@ const formatRelativeDate = (dateStr: string) => {
 export default function Blog() {
   const navigate = useNavigate();
   const location = useLocation();
-  const { blogId } = useParams();
+  const { blogId, companyId } = useParams();
   const postId = Number(blogId);
 
   const openAiGuide = Boolean((location.state as { openAiGuide?: boolean } | null)?.openAiGuide);
@@ -156,7 +156,14 @@ export default function Blog() {
   return (
     <S.Container>
       <S.Header>
-        <S.BackButton type="button" onClick={() => navigate(-1)} aria-label="뒤로 가기">
+        <S.BackButton
+          type="button"
+          onClick={() => {
+            if ((location.state as { returnKey?: string } | null)?.returnKey) navigate(-1);
+            else navigate(companyId ? toCompany(companyId) : PATHS.HOME, { replace: true });
+          }}
+          aria-label="뒤로 가기"
+        >
           <S.BackIcon />
         </S.BackButton>
         <S.TitleBlock>

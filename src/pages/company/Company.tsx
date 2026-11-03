@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams, useSearchParams } from 'react-router-dom';
 
 import StatBlogIcon from '@/assets/icons/stat-blog.svg?react';
 import StatSkillIcon from '@/assets/icons/stat-skill.svg?react';
@@ -44,8 +44,27 @@ export default function Company() {
   const companyId = Number(companyIdParam);
 
   // 티켓: 「내 관심 기술만」 토글 기본 ON
-  const [onlyMySkills, setOnlyMySkills] = useState(true);
-  const [sortOrder, setSortOrder] = useState<SortOrder>('relevance');
+  const [searchParams, setSearchParams] = useSearchParams();
+  const onlyMySkills = searchParams.get('onlyMySkills') !== 'false';
+  const sortOrder: SortOrder = searchParams.get('sort') === 'latest' ? 'latest' : 'relevance';
+  const setOnlyMySkills = (value: boolean) =>
+    setSearchParams(
+      (previous) => {
+        const next = new URLSearchParams(previous);
+        next.set('onlyMySkills', String(value));
+        return next;
+      },
+      { replace: true },
+    );
+  const setSortOrder = (value: SortOrder) =>
+    setSearchParams(
+      (previous) => {
+        const next = new URLSearchParams(previous);
+        next.set('sort', value);
+        return next;
+      },
+      { replace: true },
+    );
   // 서버 응답을 다시 받기 전까지 저장 버튼 결과를 화면에 먼저 반영한다.
   const [bookmarkOverrides, setBookmarkOverrides] = useState<Record<number, boolean>>({});
 
@@ -76,18 +95,27 @@ export default function Company() {
 
   const company = detailState.status === 'done' ? detailState.company : null;
 
+  const postsRequest = useRef(0);
   const loadPosts = useCallback(() => {
+    const request = ++postsRequest.current;
     setPostsState({ status: 'loading' });
     getCompanyPosts(companyId, onlyMySkills)
       .then((data) => {
+        if (request !== postsRequest.current) return;
         setPostsState({ status: 'done', data });
         setMatchedCount(data.filter.matchedCount);
       })
-      .catch((error: ApiError) => setPostsState({ status: 'error', message: error.message }));
+      .catch((error: ApiError) => {
+        if (request === postsRequest.current)
+          setPostsState({ status: 'error', message: error.message });
+      });
   }, [companyId, onlyMySkills]);
 
   useEffect(() => {
     if (company) loadPosts();
+    return () => {
+      postsRequest.current += 1;
+    };
   }, [company, loadPosts]);
 
   const posts = useMemo(
