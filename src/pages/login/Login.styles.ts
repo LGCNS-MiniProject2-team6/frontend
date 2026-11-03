@@ -15,6 +15,11 @@ export const Body = styled.div`
   gap: 1rem;
   padding-top: 2.625rem;
   text-align: center;
+
+  @media (width <= 48rem) {
+    padding: 2rem 1rem;
+  }
+
 `;
 
 export const BigStar = styled(StarLargeSvg)`
@@ -24,6 +29,14 @@ export const BigStar = styled(StarLargeSvg)`
   width: 4.5rem;
   height: 4.5rem;
   transform: translateX(-50%);
+
+  @media (width <= 48rem) {
+    position: static;
+    width: 3rem;
+    height: 3rem;
+    transform: none;
+  }
+
 `;
 
 export const Sigil = styled(StarSvg)`

@@ -9,6 +9,12 @@ export const Content = styled.div`
   gap: 1.75rem;
   width: 38.1875rem;
   padding: 2rem 0;
+  max-width: 100%;
+
+  @media (width <= 48rem) {
+    padding: 1.5rem 1rem;
+  }
+
 `;
 
 export const Sigil = styled(StarSvg)`
