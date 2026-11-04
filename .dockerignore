@@ -1,0 +1,11 @@
+node_modules
+dist
+.git
+.github
+.husky
+.idea
+.vscode
+# .env.local이 들어가면 로컬 API 주소가 빌드에 박힌다
+.env*
+*.local
+docs
