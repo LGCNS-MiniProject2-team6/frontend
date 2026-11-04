@@ -1,0 +1,31 @@
+# nginx 이미지가 기동 시 ${API_UPSTREAM}만 환경변수로 치환한다 (정의된 변수만 치환하므로 $host 등은 그대로).
+server {
+    listen 8080;
+    server_name _;
+    root /usr/share/nginx/html;
+
+    # API는 Gateway로 프록시. 브라우저 입장에서 같은 주소라 CORS가 필요 없다.
+    location /api/ {
+        proxy_pass ${API_UPSTREAM};
+        proxy_http_version 1.1;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+        # AI 가이드 생성이 오래 걸린다 (기본 60초면 504).
+        proxy_read_timeout 130s;
+        client_max_body_size 10m;
+    }
+
+    # 빌드 산출물(해시 파일명)은 오래 캐시
+    location /assets/ {
+        expires 1y;
+        add_header Cache-Control "public, immutable";
+    }
+
+    # SPA: /google/callback 등에서 새로고침해도 index.html로 (vercel.json rewrite와 같은 역할)
+    location / {
+        try_files $uri $uri/ /index.html;
+        add_header Cache-Control "no-cache";
+    }
+}
