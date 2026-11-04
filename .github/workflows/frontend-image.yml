@@ -1,0 +1,64 @@
+name: Frontend Image
+
+# develop에 머지되면 배포용 이미지를 GHCR에 올린다. PR에서는 빌드만 확인한다.
+# GHCR은 GITHUB_TOKEN으로 푸시하므로 별도 Secret 등록이 필요 없다.
+on:
+  pull_request:
+    branches: [develop]
+    paths: [Dockerfile, .dockerignore, 'nginx/**', .github/workflows/frontend-image.yml]
+  push:
+    branches: [develop]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  packages: write
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  image:
+    name: Build and push image
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    env:
+      IMAGE: ghcr.io/lgcns-miniproject2-team6/recu-frontend:${{ github.sha }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+
+      # 구글 Client ID는 공개값이라 저장소 Variable(VITE_GOOGLE_CLIENT_ID)로 넘긴다.
+      - name: Build image
+        env:
+          VITE_GOOGLE_CLIENT_ID: ${{ vars.VITE_GOOGLE_CLIENT_ID }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          if [[ -z "$VITE_GOOGLE_CLIENT_ID" ]]; then
+            echo '::error::저장소 Variable VITE_GOOGLE_CLIENT_ID가 비어 있습니다.'
+            exit 1
+          fi
+          docker build --platform linux/amd64 \
+            --build-arg VITE_GOOGLE_CLIENT_ID="$VITE_GOOGLE_CLIENT_ID" \
+            --label "org.opencontainers.image.source=https://github.com/${{ github.repository }}" \
+            --label "org.opencontainers.image.revision=$GITHUB_SHA" \
+            -t "$IMAGE" .
+
+      - name: Login to GHCR
+        if: github.event_name != 'pull_request'
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Push image
+        if: github.event_name != 'pull_request'
+        shell: bash
+        run: |
+          set -euo pipefail
+          docker push "$IMAGE"
+          echo "Published: $IMAGE" >> "$GITHUB_STEP_SUMMARY"
