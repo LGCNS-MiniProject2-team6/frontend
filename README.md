@@ -178,13 +178,13 @@ Dockerfile은 정적 파일을 빌드하고 nginx의 `8080` 포트로 제공합�
 
 | 작업 영역 | 담당자 | 담당 내용 |
 | --- | --- | --- |
-| 프론트엔드 화면·알림·PR CI | [@yhi9839](https://github.com/yhi9839) | 기존 화면의 MSA API 연결·반응형 개선, 알림 목록·읽음·이동, 빌드·린트 PR 검사 |
-| Backend — User·알림 | [@woomoo3](https://github.com/woomoo3) · [@yhi9839](https://github.com/yhi9839) | 각각 인증·프로필·북마크·Kafka 알림 생성과 알림 조회·읽음 처리 API |
-| Backend — Blog | [@Kimoojin](https://github.com/Kimoojin) | 기업·게시글·태그·수집 기능 및 서비스 간 조회 계약 |
-| Backend — AI·Gateway 인증 | [@pdpdpdjjj23](https://github.com/pdpdpdjjj23) | AI 가이드·내부 API, Gateway JWT 검증·사용자 ID 전달 |
-| DevOps 역할1 | [@yhi9839](https://github.com/yhi9839) | Gateway 라우팅·CORS·Config·서비스 연결 |
-| 프론트 컨테이너·이미지 CI | [@HYH0804](https://github.com/HYH0804) | Docker·nginx 정적 이미지·GHCR 업로드 CI·dev 배포 연결 |
-| DevOps 역할2 | [@Unpart](https://github.com/Unpart) | dev/prod 배포·Registry Secret·Ingress·TLS·공개 도메인 운영 |
+| 프론트엔드 화면·알림·PR CI | [윤현일(@yhi9839)](https://github.com/yhi9839) | 기존 화면의 MSA API 연결·반응형 개선, 알림 목록·읽음·이동, 빌드·린트 PR 검사 |
+| Backend — User·알림 | [한예림(@woomoo3)](https://github.com/woomoo3) · [윤현일(@yhi9839)](https://github.com/yhi9839) | 각각 인증·프로필·북마크·Kafka 알림 생성과 알림 조회·읽음 처리 API |
+| Backend — Blog | [김우진(@Kimoojin)](https://github.com/Kimoojin) | 기업·게시글·태그·수집 기능 및 서비스 간 조회 계약 |
+| Backend — AI·Gateway 인증 | [박재후(@pdpdpdjjj23)](https://github.com/pdpdpdjjj23) | AI 가이드·내부 API, Gateway JWT 검증·사용자 ID 전달 |
+| MSA 플랫폼 | [윤현일(@yhi9839)](https://github.com/yhi9839) | Gateway 라우팅·CORS·Config·서비스 연결 |
+| 프론트 컨테이너·이미지 CI | [현준혁(@HYH0804)](https://github.com/HYH0804) | Docker·nginx 정적 이미지·GHCR 업로드 CI·dev 배포 연결 |
+| K3s·GitOps 배포 | [문한일(@Unpart)](https://github.com/Unpart) | dev/prod 배포·Registry Secret·Ingress·TLS·공개 도메인 운영 |
 
 담당 계정은 frontend와 연동 저장소의 병합 PR·커밋 이력 기준입니다. 표는 작업 영역 기준이며, 기존 화면 개발과 이번 MSA 연동·배포 작업을 구분합니다.
 
